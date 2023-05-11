@@ -1,0 +1,61 @@
+.cardcontent{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 2px;
+    flex-wrap: wrap;
+    padding: 8px;
+   
+}
+
+.cardcontent h6 {
+    margin: 0px;
+}
+
+.cardcontent p{
+ margin: 0px;
+ align-self: flex-start;
+
+}
+
+.titlearea{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    flex-wrap: wrap;
+}
+
+.title{
+
+}
+
+.btngroup{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.link{
+    color: black;
+}
+
+.btnactions{
+    display: flex;
+    flex-direction: row;
+    gap:1px;
+}
+
+.delete{
+    color: red;
+}
+
+.read{
+    color: orange;
+}
+
+.spam{
+    color: green;
+}
