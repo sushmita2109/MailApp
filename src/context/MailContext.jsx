@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-
+import { mails } from "../data/fakeFetch";
 import PropTypes from "prop-types";
 
 export const MailContext = createContext();
@@ -101,12 +101,20 @@ export const MailProvider = ({ children }) => {
     dispatch({ type: "ADD_STAR", id: mId });
   };
 
-  const showUnread = () => {
-    dispatch({ type: "SHOW_READ" });
+  const showUnread = (checked) => {
+    if (checked) {
+      dispatch({ type: "SHOW_READ" });
+    } else {
+      addAllMail(mails);
+    }
   };
 
-  const showStared = () => {
-    dispatch({ type: "SHOW_STAR" });
+  const showStared = (checked) => {
+    if (checked) {
+      dispatch({ type: "SHOW_STAR" });
+    } else {
+      addAllMail(mails);
+    }
   };
 
   return (

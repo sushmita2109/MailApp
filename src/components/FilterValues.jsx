@@ -8,11 +8,18 @@ export const FilterValues = () => {
         <legend>Filter:</legend>
 
         <label>
-          <input type="checkbox" value="unread" onChange={showUnread} />
+          <input
+            type="checkbox"
+            value="unread"
+            onChange={(event) => showUnread(event.target.checked)}
+          />
           Show Unread Mails
         </label>
         <label>
-          <input type="checkbox" onChange={showStared} />
+          <input
+            type="checkbox"
+            onChange={(event) => showStared(event.target.checked)}
+          />
           Show Stared Mails
         </label>
       </fieldset>
