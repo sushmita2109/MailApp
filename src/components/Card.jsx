@@ -3,10 +3,12 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 export const Card = () => {
-  const { allMails } = useMail();
+  const { state, addToTrash, addAsRead } = useMail();
+
+  console.log("state", state);
   return (
     <div>
-      {allMails.map((allMail) => (
+      {state.allData.map((allMail) => (
         <div key={allMail.mId} className="cardcontent">
           <div className="titlearea">
             <h6 className="title">{allMail.subject}</h6>
@@ -16,8 +18,15 @@ export const Card = () => {
           <div className="btngroup">
             <Link className="link">View Details</Link>
             <div className="btnactions">
-              <button className="delete">Delete</button>
-              <button className="read">Mark as Read</button>
+              <button
+                className="delete"
+                onClick={() => addToTrash(allMail.mId)}
+              >
+                Delete
+              </button>
+              <button className="read" onClick={() => addAsRead(allMail.mId)}>
+                Mark as Read
+              </button>
               <button className="spam">Report Spam</button>
             </div>
           </div>

@@ -1,0 +1,4 @@
+.inboxpage{
+    display: flex;
+    flex-direction: row;
+}

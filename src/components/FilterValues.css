@@ -1,9 +1,10 @@
 .filtervalue{
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
     flex-wrap: wrap;
     padding: 8px;
     gap: 5px;
     border-radius: 5px;
+    align-items: flex-start;
+    justify-content: flex-start;
 }

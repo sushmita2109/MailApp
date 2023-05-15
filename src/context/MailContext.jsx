@@ -1,14 +1,76 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { mails } from "../data/fakeFetch";
 import PropTypes from "prop-types";
 
 export const MailContext = createContext();
 
+const initialState = {
+  allData: [],
+  allDeleteMail: [],
+  allSpamMail: [],
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "TRASH": {
+      const result = state.allData.filter((data) => data.mId === action.id);
+      // state.allDeleteMail = [...state.allDeleteMail, result];
+      console.log(state.allDeleteMail);
+
+      const newState = {
+        ...state,
+        allDeleteMail: [...state.allDeleteMail, ...result],
+      };
+      return newState;
+    }
+    case "ADD_MAIL": {
+      state.allData = action.payload;
+      const newState = {
+        ...state,
+        allData: action.payload,
+      };
+      return newState;
+    }
+    case "ADD_READ": {
+      const result = state.allData.map((data) =>
+        data.mId === action.id ? { ...data, unread: false } : { ...data }
+      );
+      const newState = { ...state, allData: [...state.allData, ...result] };
+      return newState;
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
 export const MailProvider = ({ children }) => {
-  const [allMails, setAllMails] = useState(mails);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const addToTrash = (mId) => {
+    dispatch({ type: "TRASH", id: mId });
+  };
+
+  const addAllMail = (mails) => {
+    dispatch({ type: "ADD_MAIL", payload: mails });
+  };
+
+  const addAsRead = (mId) => {
+    dispatch({ type: "ADD_READ", id: mId });
+  };
 
   return (
-    <MailContext.Provider value={{ allMails }}>{children}</MailContext.Provider>
+    <MailContext.Provider
+      value={{ state, addToTrash, addAllMail, dispatch, addAsRead }}
+    >
+      {children}
+    </MailContext.Provider>
   );
 };
 
