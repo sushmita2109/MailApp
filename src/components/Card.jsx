@@ -3,7 +3,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 export const Card = () => {
-  const { state, addToTrash, addAsRead } = useMail();
+  const { state, addToTrash, addAsRead, addToSpam } = useMail();
 
   console.log("state", state);
   return (
@@ -27,7 +27,9 @@ export const Card = () => {
               <button className="read" onClick={() => addAsRead(allMail.mId)}>
                 Mark as Read
               </button>
-              <button className="spam">Report Spam</button>
+              <button className="spam" onClick={() => addToSpam(allMail.mId)}>
+                Report Spam
+              </button>
             </div>
           </div>
         </div>

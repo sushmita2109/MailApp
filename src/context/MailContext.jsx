@@ -1,11 +1,5 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { mails } from "../data/fakeFetch";
+import { createContext, useContext, useReducer } from "react";
+
 import PropTypes from "prop-types";
 
 export const MailContext = createContext();
@@ -43,6 +37,14 @@ const reducer = (state, action) => {
       const newState = { ...state, allData: [...state.allData, ...result] };
       return newState;
     }
+    case "ADD_SPAM": {
+      const result = state.allData.filter((data) => data.id === action.id);
+      const newState = {
+        ...state,
+        allSpamMail: [...state.allSpamMail, ...result],
+      };
+      return newState;
+    }
 
     default: {
       return state;
@@ -65,9 +67,13 @@ export const MailProvider = ({ children }) => {
     dispatch({ type: "ADD_READ", id: mId });
   };
 
+  const addToSpam = (mId) => {
+    dispatch({ type: "ADD_SPAM", id: mId });
+  };
+
   return (
     <MailContext.Provider
-      value={{ state, addToTrash, addAllMail, dispatch, addAsRead }}
+      value={{ state, addToTrash, addAllMail, dispatch, addAsRead, addToSpam }}
     >
       {children}
     </MailContext.Provider>
