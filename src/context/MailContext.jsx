@@ -38,10 +38,36 @@ const reducer = (state, action) => {
       return newState;
     }
     case "ADD_SPAM": {
-      const result = state.allData.filter((data) => data.id === action.id);
+      const result = state.allData.filter((data) => data.mId === action.id);
+
       const newState = {
         ...state,
         allSpamMail: [...state.allSpamMail, ...result],
+      };
+
+      return newState;
+    }
+    case "ADD_STAR": {
+      const result = state.allData.map((data) =>
+        data.mId === action.id ? { ...data, isStarred: true } : { ...data }
+      );
+      const newState = { ...state, allData: [...state.allData, ...result] };
+      return newState;
+    }
+
+    case "SHOW_READ": {
+      const result = state.allData.filter((data) => data.unread);
+      const newState = {
+        ...state,
+        allData: [...result],
+      };
+      return newState;
+    }
+    case "SHOW_STAR": {
+      const result = state.allData.filter((data) => data.isStarred);
+      const newState = {
+        ...state,
+        allData: [...result],
       };
       return newState;
     }
@@ -71,9 +97,31 @@ export const MailProvider = ({ children }) => {
     dispatch({ type: "ADD_SPAM", id: mId });
   };
 
+  const addStar = (mId) => {
+    dispatch({ type: "ADD_STAR", id: mId });
+  };
+
+  const showUnread = () => {
+    dispatch({ type: "SHOW_READ" });
+  };
+
+  const showStared = () => {
+    dispatch({ type: "SHOW_STAR" });
+  };
+
   return (
     <MailContext.Provider
-      value={{ state, addToTrash, addAllMail, dispatch, addAsRead, addToSpam }}
+      value={{
+        state,
+        addToTrash,
+        addAllMail,
+        dispatch,
+        addAsRead,
+        addToSpam,
+        addStar,
+        showUnread,
+        showStared,
+      }}
     >
       {children}
     </MailContext.Provider>

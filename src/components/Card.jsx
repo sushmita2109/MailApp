@@ -3,7 +3,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 export const Card = () => {
-  const { state, addToTrash, addAsRead, addToSpam } = useMail();
+  const { state, addToTrash, addAsRead, addToSpam, addStar } = useMail();
 
   console.log("state", state);
   return (
@@ -12,7 +12,9 @@ export const Card = () => {
         <div key={allMail.mId} className="cardcontent">
           <div className="titlearea">
             <h6 className="title">{allMail.subject}</h6>
-            <button className="star">Star</button>
+            <button className="star" onClick={() => addStar(allMail.mId)}>
+              Star
+            </button>
           </div>
           <p>{allMail.content}</p>
           <div className="btngroup">
